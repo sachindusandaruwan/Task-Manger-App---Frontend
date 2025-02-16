@@ -1,11 +1,11 @@
-import loginImg from "../../assets/student-designer-greeting.png";
+import loginImg from "../../assets/user new.png";
 import {Link} from "react-router-dom";
 
 export function SignupForm() {
     return (
         <>
             <div className="w-full h-screen flex justify-center items-center text-center">
-                <div className="w-auto h-auto flex justify-center items-center ">
+                <div className="w-auto h-auto flex justify-center items-center  gap-10 ">
                     <div className="flex justify-center items-center">
                         <img src={loginImg} alt="login form img" className="mb-10 w-[500px]"/>
                     </div>
