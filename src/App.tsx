@@ -1,9 +1,10 @@
 
 import './App.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import LoginForm from "./page/register/LoginForm.tsx";
+
 import {Dashboard} from "./page/Dashboard.tsx";
 import {SignupForm} from "./page/register/SignupForm.tsx";
+import {LoginForm} from "./page/register/LoginForm.tsx";
 
 function App() {
 
