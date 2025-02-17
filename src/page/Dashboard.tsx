@@ -1,8 +1,12 @@
+import CalendarComponent from "../components/CalenderComponent.tsx";
 
 export function Dashboard() {
     return (
        <>
-       <h1>Dashboard</h1>
+       <div>
+           <CalendarComponent></CalendarComponent>
+
+       </div>
        </>
     );
 }
