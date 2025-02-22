@@ -1,7 +1,6 @@
 import {motion} from "framer-motion";
 
-export function AddTaskPop({closePopup}: { closePopup: () => void }) {
-
+export function DeleUpdGetPop({closePopup}: { closePopup: () => void }) {
     return (
         <>
             <motion.div
@@ -70,7 +69,11 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
 
                     <div className="flex justify-between mt-[43px] w-full">
                         <button onClick={closePopup}
-                            className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
+                                className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
+                            <span>close</span>
+                        </button>
+                        <button onClick={closePopup}
+                                className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
                             <span>close</span>
                         </button>
                         <button className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">

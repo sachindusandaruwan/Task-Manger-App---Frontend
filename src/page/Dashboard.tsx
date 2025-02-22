@@ -10,7 +10,7 @@ export function Dashboard() {
     return (
        <>
        <div className="mg-4">
-           {showPopup && <AddTaskPop></AddTaskPop>}
+           {showPopup && <AddTaskPop closePopup={togglePopup}></AddTaskPop>}
            <CalendarComponent handlePopup={togglePopup}></CalendarComponent>
 
        </div>
