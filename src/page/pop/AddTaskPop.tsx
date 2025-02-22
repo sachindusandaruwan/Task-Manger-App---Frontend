@@ -1,6 +1,28 @@
 import {motion} from "framer-motion";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import {addTask} from "../../slice/TaskSlice.ts";
+
 
 export function AddTaskPop({closePopup}: { closePopup: () => void }) {
+
+    const dispatch = useDispatch();
+
+    const [title,setTitle] = useState("");
+    const [startDateTime,setStartDateTime] = useState("");
+    const [endDateTime,setEndDateTime] = useState("");
+    const [place,setPlace] = useState("");
+    const [status,setStatus] = useState("");
+
+    function handleAddTask(e: any){
+        e.preventDefault();
+        const newTask={title, startDateTime, endDateTime, place, status};
+        dispatch(addTask(newTask));
+        closePopup();
+        alert("Task Added Successfully");
+        closePopup();
+
+    }
 
     return (
         <>
@@ -33,7 +55,9 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
                         <div className="flex flex-col w-full">
                             <label className="text-[16px] font-[500]">Title</label>
                             <input type="text"
-                                   className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"/>
+                                   className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"
+                                   placeholder="Common Name" value={title}
+                                   onChange={(e) => setTitle(e.target.value)}/>
                         </div>
                         <div className="flex flex-col w-full">
                             <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6 w-full">
@@ -42,7 +66,9 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
                                     <label className="block text-sm font-medium text-gray-900">Start Date & Time</label>
                                     <div className="mt-2">
                                         <input type="datetime-local" name="startDateTime" required
-                                               className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"/>
+                                               className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"
+                                               placeholder="Common Name" value={startDateTime}
+                                               onChange={(e) => setStartDateTime(e.target.value)}/>
                                     </div>
                                 </div>
 
@@ -51,7 +77,9 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
                                     <label className="block text-sm font-medium text-gray-900">End Date & Time</label>
                                     <div className="mt-2">
                                         <input type="datetime-local" name="endDateTime" required
-                                               className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"/>
+                                               className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"
+                                               placeholder="Common Name" value={endDateTime}
+                                               onChange={(e) => setEndDateTime(e.target.value)}/>
                                     </div>
                                 </div>
                             </div>
@@ -59,12 +87,15 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
                         <div className="flex flex-col w-full">
                             <label className="text-[16px] font-[500]">Place</label>
                             <input type="text"
-                                   className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"/>
+                                   className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"
+                                   placeholder="Common Name" value={place}
+                                   onChange={(e) => setPlace(e.target.value)}/>
                         </div>
                         <div className="flex flex-col w-full">
                             <label className="text-[16px] font-[500]">Status</label>
-                            <input type="text"
-                                   className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"/>
+                            <input type="text"  className="rounded-[12px] border-[1.5px] border-[#E7E7E90] text-[18px] font-[500] p-3 w-full mt-[5px]"
+                                placeholder="Common Name" value={status}
+                                onChange={(e) => setStatus(e.target.value)}/>
                         </div>
                     </div>
 
@@ -73,7 +104,8 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
                             className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
                             <span>close</span>
                         </button>
-                        <button className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
+                        <button onClick={handleAddTask}
+                            className="flex items-center gap-3 bg-black text-[#fff] p-3 px-7 rounded-[12px]">
                             <span>Add</span>
                         </button>
                     </div>
