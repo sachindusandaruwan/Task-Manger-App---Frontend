@@ -1,8 +1,13 @@
 
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import userImage from "../../assets/user_3_bg_removed.png.png"
 
 export function LoginForm() {
+    const navigate=useNavigate();
+    const handleLogin=()=>{
+        navigate("/dashboard");
+    }
+
     return (
         <>
             <div className="w-full h-screen flex justify-center items-center text-center">
@@ -10,7 +15,7 @@ export function LoginForm() {
                     <div className="flex justify-center items-center">
                         <img src={userImage} alt="login form img" className="mb-10 w-[330px]"/>
                     </div>
-                    <form action="" className="w-[450px] flex flex-col items-center">
+                    <form onSubmit={handleLogin} className="w-[450px] flex flex-col items-center">
                         <h6 className="font-[600] text-[28px] text-[000000]">Sign in to Task Manager</h6>
                         <p className="font-[400] text-[16px] text-black mb-[10px]">Signup system to login system</p>
 
