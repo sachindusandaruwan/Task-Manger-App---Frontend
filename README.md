@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Tasks Manager
 
-Currently, two official plugins are available:
+**This is a Task Manager application built with a React frontend, Node.js backend, MongoDB database, and JWT-based authentication. Users can sign up, sign in, and manage tasks including adding, updating, viewing, and deleting them.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features ✨
 
-## Expanding the ESLint configuration
+- Sign Up: Register a new user account.
+- Sign In: Log into your account with a username and password.
+- Add Task: Create a new task and assign it a title and description.
+- View Task: View a list of tasks created by the logged-in user.
+- Update Task: Edit details.
+- Delete Task: Remove a task from the list.
+  
+## Technologies Used 🚀
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Frontend**: [React](https://reactjs.org/)
+- **Backend**: [Node.js](https://nodejs.org/) (if applicable)
+- **Database**: [MongoDB](https://www.mongodb.com/) (if applicable)
+- **Authentication**: [JWT](https://jwt.io/) or OAuth (if applicable)
 
-- Configure the top-level `parserOptions` property like this:
+## Installation 🔧
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+To get started with **Task Manager**, follow these steps:
+
+### 1. Clone the repository:
+
+```bash
+git clone https://github.com/sachindusandaruwan/Task-Manger-App---Frontend.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+For Node.js-based projects:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+cd task_manager_app_frontend
+npm install
 ```
+
+### 3. Start the application:
+
+```bash
+npm start
+```
+
+### 4. Visit the app:
+
+Open your browser and go to `http://localhost:3000` (or the specified port) to start using **Task Manager**.
+
+
+
+## License 📜
+
+This project is licensed under the MIT License - 
