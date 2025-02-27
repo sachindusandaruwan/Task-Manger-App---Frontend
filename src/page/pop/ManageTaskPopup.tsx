@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {removeTask, updateTask} from "../../slice/TaskSlice.ts";
+import {deleteTask, updateTask} from "../../slice/TaskSlice.ts";
 import {Task} from "../../model/Task.ts";
+import {RootState} from "../../store/Store.ts";
 
 
 interface UpdateTaskPopProps {
@@ -20,21 +21,44 @@ export function UpdateTaskPop({ closePopup, task }: UpdateTaskPopProps) {
     const [place, setPlace] = useState(task.place);
     const [status, setStatus] = useState(task.status);
 
+    const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken) ;
+
     function handleUpdateTask(e: any) {
         e.preventDefault();
         const updatedTask = { ...task, title, startDateTime, endDateTime, place, status };
-        dispatch(updateTask(updatedTask));
-        alert("Task Updated Successfully");
-        closePopup();
+
+        
+        // @ts-ignore
+        dispatch(updateTask({ task: updatedTask, jwtToken }))
+            .unwrap()
+            .then(() => {
+                alert("Task Updated Successfully");
+                closePopup();
+            })
+            .catch((error:any) => {
+                alert("Failed to update task: " + error);
+            });
     }
 
-    function handleDeleteTask() {
+
+    const handleDeleteTask = () => {
         if (window.confirm("Are you sure you want to delete this task?")) {
-            dispatch(removeTask(task.taskId));
-            alert("Task Deleted Successfully");
-            closePopup();
+            if (jwtToken) {
+                // @ts-ignore
+                dispatch(deleteTask({ _id: task._id, jwtToken: jwtToken }))
+                    .unwrap()
+                    .then(() => {
+                        alert("Task Deleted Successfully");
+                        closePopup();
+                    })
+                    .catch((error: any) => {
+                        alert(`Failed to delete task: ${error}`);
+                    });
+            } else {
+                alert("JWT Token is missing");
+            }
         }
-    }
+    };
 
     return (
         <motion.div

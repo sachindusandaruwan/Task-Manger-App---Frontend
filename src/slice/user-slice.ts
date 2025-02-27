@@ -92,7 +92,6 @@ const userSlice=createSlice({
                 state.error = "";
             })
             .addCase(loginUser.fulfilled, (state, { payload }:any) => {
-                state.loading = false;
                 state.jwtToken = payload.accessToken;
                 state.refreshToken = payload.refreshToken;
                 state.isAuthenticated = true;
@@ -100,7 +99,7 @@ const userSlice=createSlice({
                 state.name = payload.name;
                 state.email = payload.email;
             })
-            .addCase(loginUser.rejected, (state, { payload }) => {
+            .addCase(loginUser.rejected, (state:any, { payload }) => {
                 state.loading = false;
                 state.error = payload;
             });

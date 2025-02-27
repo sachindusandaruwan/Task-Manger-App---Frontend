@@ -21,7 +21,7 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
     function handleAddTask(e: any){
         e.preventDefault();
         const task: Task = {
-            taskId: "",
+            _id: "",
             title: title,
             startDateTime: startDateTime,
             endDateTime: endDateTime,
@@ -29,6 +29,7 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
             status: status,
             userId: userId
         };
+        alert(jwtToken+"huuuu")
         dispatch(addTask({ task, jwtToken }));
 
         alert("Task Added Successfully");
