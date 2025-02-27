@@ -1,20 +1,52 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { Task } from "../model/Task";
+import axios from "axios";
 
 // Define initial dummy data
-const initialTasks: Task[] = [
-    new Task('3344',new Date(2025, 1, 1, 8, 0), new Date(2025, 1, 1, 10, 0), 'Meeting with the team', 'Conference Room', 'Pending'),
-    new Task('04455',new Date(2025, 1, 2, 9, 0), new Date(2025, 1, 2, 11, 0), 'Client Call', 'Office', 'Completed')
-];
+const initialTasks: Task[] = [];
+
+const api=axios.create({
+    baseURL: "http://localhost:3000",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
+export const getTasksByUserId = createAsyncThunk(
+    'tasks/getTasksByUserId',
+    async ({ userId, jwtToken }: { userId: string; jwtToken: string }) => {
+        console.log(userId + " and " + jwtToken);
+        const response = await api.get(`/task/getTaskByUser/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            },
+        });
+        return response.data;
+    }
+);
+
+export const addTask = createAsyncThunk(
+    'tasks/addTask',
+    async ({ task, jwtToken }: { task: Task; jwtToken: string }) => {
+        console.log(jwtToken);
+        const response = await api.post('/task/add', task, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            },
+        });
+        return response.data;
+    }
+);
+
+
+
 
 // Create the slice
 const taskSlice = createSlice({
     name: "tasks",
     initialState: initialTasks,
     reducers: {
-        addTask: (state, action: PayloadAction<Task>) => {
-            state.push(action.payload);
-        },
+
         updateTask: (state, action: PayloadAction<Task>) => {
             const index = state.findIndex(task => task.taskId === action.payload.taskId);
             if (index !== -1) {
@@ -25,7 +57,15 @@ const taskSlice = createSlice({
             return state.filter(task => task.taskId !== action.payload);
         },
     },
+    extraReducers: (builder) => {
+        builder.
+            addCase(getTasksByUserId.fulfilled, (state, action:any) => {
+               return action.payload;
+            })
+    }
 });
 
-export const { addTask, updateTask,removeTask } = taskSlice.actions;
+
+
+export const {  updateTask,removeTask } = taskSlice.actions;
 export default taskSlice.reducer;

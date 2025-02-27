@@ -1,24 +1,36 @@
 import {motion} from "framer-motion";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {addTask} from "../../slice/TaskSlice.ts";
+import {Task} from "../../model/Task.ts";
+import {AppDispatch, RootState} from "../../store/Store.ts";
+
 
 
 export function AddTaskPop({closePopup}: { closePopup: () => void }) {
-
-    const dispatch = useDispatch();
-
     const [title,setTitle] = useState("");
     const [startDateTime,setStartDateTime] = useState("");
     const [endDateTime,setEndDateTime] = useState("");
     const [place,setPlace] = useState("");
     const [status,setStatus] = useState("");
 
+    const userId = useSelector((state: RootState) => state.userReducer.userId);
+    const dispatch = useDispatch<AppDispatch>(); // Ensure dispatch is correctly typed
+    const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken) ;
+
     function handleAddTask(e: any){
         e.preventDefault();
-        const newTask={title, startDateTime, endDateTime, place, status};
-        dispatch(addTask(newTask));
-        closePopup();
+        const task: Task = {
+            taskId: "",
+            title: title,
+            startDateTime: startDateTime,
+            endDateTime: endDateTime,
+            place: place,
+            status: status,
+            userId: userId
+        };
+        dispatch(addTask({ task, jwtToken }));
+
         alert("Task Added Successfully");
         closePopup();
 

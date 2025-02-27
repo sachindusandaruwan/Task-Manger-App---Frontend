@@ -2,12 +2,14 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Task } from "../model/Task.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/Store.ts";
-import { useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "../store/Store.ts";
+import {useEffect, useState} from "react";
 
 import {UpdateTaskPop} from "../page/pop/ManageTaskPopup.tsx";
 import {useNavigate} from "react-router-dom";
+import {getTasksByUserId} from "../slice/TaskSlice.ts";
+import {logoutUser} from "../slice/user-slice.ts";
  // Import the popup component
 
 // Set up the localizer using moment
@@ -24,8 +26,18 @@ const CalendarComponent = ({ handlePopup }: CalendarComponentProps) => {
     // Get tasks from the Redux store
     const tasks: Task[] = useSelector((state: RootState) => state.tasks);
 
-    // Store the selected task and open update popup state
+    const userId = useSelector((state: RootState) => state.userReducer.userId);
+    const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken); // Ensure correct naming
+
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        if (userId && jwtToken) {
+            dispatch(getTasksByUserId({ userId, jwtToken })); // Pass parameters correctly
+        }
+    }, [userId, jwtToken, dispatch]);
+
 
     const navigate=useNavigate();
 
@@ -46,7 +58,8 @@ const CalendarComponent = ({ handlePopup }: CalendarComponentProps) => {
 
 
     const handleLogout=()=>{
-        navigate("/");
+        dispatch(logoutUser())
+        navigate("/")
     }
 
     return (
