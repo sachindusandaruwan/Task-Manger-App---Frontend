@@ -52,4 +52,4 @@ Open your browser and go to `http://localhost:3000` (or the specified port) to s
 
 ## License 📜
 
-This project is licensed under the MIT License - 
+This project is licensed under the MIT License -  see the LICENSE file for details
