@@ -6,9 +6,10 @@ import {Task} from "../../model/Task.ts";
 import {RootState} from "../../store/Store.ts";
 
 
+// Task is required for updating or deleting
 interface UpdateTaskPopProps {
     closePopup: () => void;
-    task: Task; // Task is required for updating or deleting
+    task: Task;
 }
 
 export function UpdateTaskPop({ closePopup, task }: UpdateTaskPopProps) {

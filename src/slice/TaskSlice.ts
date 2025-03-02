@@ -86,12 +86,12 @@ const taskSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getTasksByUserId.fulfilled, (_, action) => {
-                return action.payload; // Replace state with fetched tasks
+                return action.payload;
             })
             .addCase(addTask.fulfilled, (state, action) => {
                 console.log("Added task:", action.payload);
                 // Optimistically update the state with the new task
-                return [...state, action.payload]; // Return new state array
+                return [...state, action.payload];
             })
             .addCase(deleteTask.fulfilled, (state, action) => {
                 console.log("Deleted task:", action.payload);

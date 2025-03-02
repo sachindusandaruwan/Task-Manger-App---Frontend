@@ -10,7 +10,7 @@ import {UpdateTaskPop} from "../page/pop/ManageTaskPopup.tsx";
 import {useNavigate} from "react-router-dom";
 import {getTasksByUserId} from "../slice/TaskSlice.ts";
 import {logoutUser} from "../slice/user-slice.ts";
- // Import the popup component
+
 
 // Set up the localizer using moment
 const localizer = momentLocalizer(moment);
@@ -27,7 +27,7 @@ const CalendarComponent = ({ handlePopup }: CalendarComponentProps) => {
     const tasks: Task[] = useSelector((state: RootState) => state.tasks);
 
     const userId = useSelector((state: RootState) => state.userReducer.userId);
-    const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken); // Ensure correct naming
+    const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken);
 
     const [selectedTask, setSelectedTask] = useState<Task | null>(null);
     const dispatch = useDispatch<AppDispatch>();
@@ -44,12 +44,14 @@ const CalendarComponent = ({ handlePopup }: CalendarComponentProps) => {
     // Map the tasks to the format required by react-big-calendar
     const events = tasks.map((task) => ({
         title: task.title,
-        start: new Date(task.startDateTime), // Ensure this is a Date object
-        end: new Date(task.endDateTime),     // Ensure this is a Date object
+        start: new Date(task.startDateTime),
+        end: new Date(task.endDateTime),
         status: task.status,
         place: task.place,
-        taskObject: task // Store the full task object for reference
+        taskObject: task
+
     }));
+    console.log(events);
 
     // Function to handle task click and open update popup
     const handleEventClick = (event: any) => {
@@ -81,7 +83,7 @@ const CalendarComponent = ({ handlePopup }: CalendarComponentProps) => {
                 onSelectEvent={handleEventClick} // Event click handler
             />
 
-            {/* Show update popup if a task is selected */}
+
             {selectedTask && (
                 <UpdateTaskPop closePopup={() => setSelectedTask(null)} task={selectedTask}/>
             )}

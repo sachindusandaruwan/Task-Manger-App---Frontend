@@ -15,7 +15,7 @@ export function AddTaskPop({closePopup}: { closePopup: () => void }) {
     const [status,setStatus] = useState("");
 
     const userId = useSelector((state: RootState) => state.userReducer.userId);
-    const dispatch = useDispatch<AppDispatch>(); // Ensure dispatch is correctly typed
+    const dispatch = useDispatch<AppDispatch>();
     const jwtToken = useSelector((state: RootState) => state.userReducer.jwtToken) ;
 
     function handleAddTask(e: any){
